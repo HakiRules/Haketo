@@ -3,14 +3,17 @@ const Discord = require('discord.js');
 const { prefix } = require('config.json');
 const fs = require('fs');
 const client = new Discord.Client();
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+const commandFolders  = fs.readdirSync('./commands');
 
 client.commands = new Discord.Collection();
 dotenv.config();
 
-for (const file of commandFiles) {
-	const command = require(`./commands/${file}`);
-	client.commands.set(command.name, command);
+for (const folder of commandFolders) {
+	const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
+    for(const file of commandFiles) {
+        const command = require(`./commands/${folder}/${file}`);
+		client.commands.set(command.name, command);
+    }
 }
 
 client.once('ready', () => {
@@ -26,6 +29,25 @@ client.on('message', message  => {
     if (!client.commands.has(commandName)) return;
 
     const command = client.commands.get(command)
+
+    if (command.guildOnly && message.channel.type === 'dm') {
+        return message.reply('Buen md, pero no puedo hacer eso aqui bro!');
+    }
+
+    if (command.permissions) {
+        const authorPerms = message.channel.permissionsFor(message.author);
+        if (!authorPerms || !authorPerms.has(command.permissions)) {
+            return message.reply('You can not do this!');
+        }
+    }
+
+    if (command.args && !args.length) {
+        let reply = `Y los argumentos que crack, te los has fumado?`;
+        if (command.usage) {
+            reply += `\nEsta vaina se usa asi: \`${prefix}${command.name} ${command.usage}\``;
+        }
+        return message.channel.send(reply);
+    }
 
     try {
         command.execute(message,args);
