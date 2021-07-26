@@ -4,7 +4,7 @@ module.exports = {
     usage: '[User] ',
     guildOnly: true,
     args: true,
-    permissions: 'KICK_ROLE',
+    permissions: 'KICK_MEMBERS',
     execute (message,args) {
         let user = message.mentions.members.first() || message.guild.cache.find(u => u.username == args[0]);
         if(!user) return 'No se ha encontrado el usuario bro.';

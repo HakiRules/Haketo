@@ -4,7 +4,7 @@ module.exports = {
     usage: '[User] [time in milisecs]',
     guildOnly: true,
     args: true,
-    permissions: '',
+    permissions: 'MUTE_MEMBERS',
     execute(message,args) {
         const mutedRole = message.guild.roles.cache.find((role) => role.name === 'Muted');
         let userMember = message.mentions.members.first() || message.guild.cache.find(u => u.username == args[0]);
