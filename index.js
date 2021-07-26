@@ -50,7 +50,7 @@ client.on('message', message  => {
     }
 
     try {
-        command.execute(message,args);
+        command.execute(message, args, client);
     } catch (error) {
         console.log(error);
         message.reply('Hubo un error manin, sry.');
