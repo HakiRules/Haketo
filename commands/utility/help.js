@@ -1,7 +1,7 @@
 const { prefix } = require('../../config.json');
 const fs = require('fs');
 const Discord = require('discord.js');
-const folders = fs.readdirSync('./commands');
+const commandFolders = fs.readdirSync('./commands');
 
 module.exports = {
     name: 'help',
@@ -17,9 +17,10 @@ module.exports = {
                 let commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
                 let commands = [];
                 for(const file of commandFiles) {
-                    commands.push(require(`./commands/${folder}/${file}`).name);
+                    const command = require(`../../commands/${folder}/${file}`);
+                    commands.push(command.name);
                 }
-                embed.addField(`${folder}`, commands.join('\n'), true);
+                embed.addField(`${folder[0].toUpperCase() + folder.substring(1)}`, commands.join('\n'), true);
             }
         }else{
             let command = commands.get(args[0].toLowerCase());

@@ -1,6 +1,6 @@
 const dotenv = require('dotenv');
 const Discord = require('discord.js');
-const { prefix } = require('config.json');
+const { prefix } = require('./config.json');
 const fs = require('fs');
 const client = new Discord.Client();
 const commandFolders  = fs.readdirSync('./commands');
@@ -21,14 +21,13 @@ client.once('ready', () => {
 });
 
 client.on('message', message  => {
-    if(message.content.startsWith(prefix) || message.author.bot) return;
-
+    if(!message.content.startsWith(prefix) || message.author.bot) return;
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const commandName = args.shift().toLowerCase();
     
     if (!client.commands.has(commandName)) return;
 
-    const command = client.commands.get(command)
+    const command = client.commands.get(commandName)
 
     if (command.guildOnly && message.channel.type === 'dm') {
         return message.reply('Buen md, pero no puedo hacer eso aqui bro!');

@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 
-modeule.exports = {
+module.exports = {
     name: 'embed',
     description: 'Sends a embed message to the channel which reacting to will give roles.',
     guildOnly: true,
