@@ -37,7 +37,7 @@ client.on('message', message  => {
     if (command.permissions) {
         const authorPerms = message.channel.permissionsFor(message.author);
         if (!authorPerms || !authorPerms.has(command.permissions)) {
-            return message.reply('You can not do this!');
+            return message.reply('No tienes permisos para ejecutar este comando manin!');
         }
     }
 
@@ -50,7 +50,7 @@ client.on('message', message  => {
     }
 
     try {
-        command.execute(message,args);
+        command.execute(message, args, client);
     } catch (error) {
         console.log(error);
         message.reply('Hubo un error manin, sry.');
