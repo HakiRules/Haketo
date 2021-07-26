@@ -1,0 +1,13 @@
+module.exports = {
+    name: 'deafen',
+    description: 'Deafens a user.',
+    usage: '[User] ',
+    guildOnly: true,
+    args: true,
+    permissions: '',
+    execute (message,args) {
+        let userMember = message.mentions.members.first() || message.guild.cache.find(u => u.username == args[0]);
+        if(!userMember) return 'No se ha encontrado el usuario bro.';
+        userMember.setDeaf(true);
+    }
+}
