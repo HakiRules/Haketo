@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
 const verificationLevels = {
     NONE: 'None',
@@ -15,12 +16,13 @@ module.exports = {
     guildOnly: true,
     args: false,
     execute(message,args) {
+        
         let guild = message.guild;
         let members = guild.members.cache;
         let roles = guild.roles.cache.sort((a, b) => b.position - a.position).map(role => role.toString());
         let channels = guild.channels.cache;
-        let emojis = guild.emojis.cache;
         let admins = guild.members.cache.filter(m => m.roles.cache.some(role => role.name === 'Glubl')).map(member => member.user.username.toString());
+        let date = new Date(guild.createdTimestamp);
         let embed = new Discord.MessageEmbed()
             .setTitle(guild.name)
             .setColor('YELLOW')
@@ -32,7 +34,7 @@ module.exports = {
                 `**Owner:** ${guild.owner.user.tag} (${guild.ownerID})`,
                 `**Region:** ${guild.region}`,
                 `**Verification Level:** ${verificationLevels[guild.verificationLevel]}`,
-                //`**Time Created:** ${moment(guild.createdTimestamp).format('LT')} ${moment(guild.createdTimestamp).format('LL')} [${moment(guild.createdTimestamp).fromNow()}]`,
+                `**Time Created:** ${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`,
                 '\u200b'
             ])
             .addField('Statistics', [

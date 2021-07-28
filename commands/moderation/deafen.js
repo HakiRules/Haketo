@@ -6,8 +6,8 @@ module.exports = {
     args: true,
     permissions: 'DEAFEN_MEMBERS',
     execute (message,args) {
-        let userMember = message.mentions.members.first() || message.guild.cache.find(u => u.username == args[0]);
+        let userMember = message.mentions.members.first() || message.guild.members.cache.find(u => u.user.username == args[0]);
         if(!userMember) return 'No se ha encontrado el usuario bro.';
-        userMember.setDeaf(true);
+        userMember.edit({deaf: true});
     }
 }
