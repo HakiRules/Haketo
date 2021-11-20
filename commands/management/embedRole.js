@@ -4,7 +4,7 @@ module.exports = {
     name: 'embed',
     description: 'Sends a embed message to the channel which reacting to will give roles.',
     guildOnly: true,
-    args: true,
+    args: false,
     async execute(message, args, client) {
         const embed = new Discord.MessageEmbed()
             .setColor('#ffae00')
@@ -36,7 +36,7 @@ module.exports = {
         client.on('messageReactionAdd', async (reaction, user) => {
             if(user.bot) return;
             if(!reaction.message.guild) return;
-            if(reaction.channel.id == channel.id){
+            if(reaction.message.channel.id == channel.id){
                 if(reaction.emoji.name == '🧂'){
                     await reaction.message.guild.members.cache.get(user.id).roles.add(lolRol)
                 }
@@ -60,7 +60,7 @@ module.exports = {
         client.on('messageReactionRemove', async (reaction, user) => {
             if(user.bot) return;
             if(!reaction.message.guild) return;
-            if(reaction.channel.id == channel.id){
+            if(reaction.message.channel.id == channel.id){
                 if(reaction.emoji.name == '🧂'){
                     await reaction.message.guild.members.cache.get(user.id).roles.remove(lolRol)
                 }
