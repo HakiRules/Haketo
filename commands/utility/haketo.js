@@ -14,6 +14,7 @@ module.exports = {
         let embed = new Discord.MessageEmbed()
             .setTitle(bot.user.username)
             .setDescription(`Che manin, soy el bot de este server, mi creador es HakiRules, si ves que tengo algun problema o tal habla con el, sabra que hacer.`)
+            .setThumbnail(guild.iconURL({ dynamic: true }))
             .addFields(
                 {name: 'Joined on',value: `${joinedAt.getDate()} ${months[joinedAt.getMonth()]} ${joinedAt.getFullYear()}`, inline: true},
                 {name: 'Signed on',value: `${createdAt.getDate()} ${months[createdAt.getMonth()]} ${createdAt.getFullYear()}`, inline: true},

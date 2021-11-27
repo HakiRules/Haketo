@@ -7,6 +7,7 @@ module.exports = {
     args: false,
     async execute(message, args, client) {
         const embed = new Discord.MessageEmbed()
+            .setThumbnail(guild.iconURL({ dynamic: true }))
             .setColor('#ffae00')
             .setTitle('Roles gratis!')
             .setDescription('Reacciona con los distintos emoticonos para recibir roles:')

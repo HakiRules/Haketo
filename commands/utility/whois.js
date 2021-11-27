@@ -19,6 +19,7 @@ module.exports = {
         let createdAt = new Date(user.createdAt);
         let embed = new Discord.MessageEmbed()
             .setTitle(user.username)
+            .setThumbnail(guild.iconURL({ dynamic: true }))
             .addFields(
                 {name: 'Joined on',value: `${joinedAt.getDate()} ${months[joinedAt.getMonth()]} ${joinedAt.getFullYear()}`, inline: true},
                 {name: 'Signed on',value: `${createdAt.getDate()} ${months[createdAt.getMonth()]} ${createdAt.getFullYear()}`, inline: true},

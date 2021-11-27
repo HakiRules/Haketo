@@ -8,7 +8,8 @@ module.exports = {
 	description: 'List all of my commands or info about a specific command.',
     usage: '[command name]',
 	execute(message, args) {
-        const embed = new Discord.MessageEmbed();
+        const embed = new Discord.MessageEmbed()
+            .setThumbnail(guild.iconURL({ dynamic: true }));
         const { commands } = message.client;
         embed.setColor('PURPLE');
         if(!args.length) {

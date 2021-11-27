@@ -4,12 +4,12 @@ const ytSearch = require('yt-search');
 module.exports = {
     name: 'play',
     description: 'Plays a song on the use channel',
-    usage: '',
+    usage: '[Song link or name of song]',
     guildOnly: false,
     args: true,
     async execute(message,args) {
         const voiceChannel = message.member.voice.channel;
-        if (!voiceChannel) return message.channel.send('You need to be in a channel to execute this command!');
+        if (!voiceChannel) return message.channel.send('Necesitas estar en un canal de voz para escuchar musica.');
         const connection = await voiceChannel.join();
 
         const validUrl = (url) => {
@@ -18,9 +18,9 @@ module.exports = {
         }
 
         if(validUrl(args[0])){
-            const stream = ytdl(args[0], { filter: 'audioonly' });
-            connection.play(stream,{ seek: 0, volume: 1 }).on('finish', () =>  voiceChannel.leave() );
-            await message.reply(`:thumbsup: Now Playing ***${args[0]}***`);
+            const stream = ytdl(args[0], { filter: 'audioonly', quality: "highest" });
+            connection.play(stream,{ seek: 0, volume: 0.5 }).on('finish', () =>  voiceChannel.leave() );
+            await message.reply(`:notes: Reproduciendo ***${args[0]}***`);
             return;
         }
 
@@ -33,9 +33,9 @@ module.exports = {
         if(video){
             const stream = ytdl(video.url, { filter: 'audioonly' });
             connection.play(stream,{ seek: 0, volume: 1 }).on('finish', () =>  voiceChannel.leave() );
-            await message.reply(`:thumbsup: Now Playing ***${video.title}***`);
+            await message.reply(`:notes: Reproduciendo ***${video.title}***`);
         }else{
-            message.channel.send('No video results found');
+            message.channel.send('No he encontrado ningun video.');
         }
     }
 }

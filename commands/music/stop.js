@@ -1,6 +1,6 @@
 
 module.exports = {
-    name: 'leave',
+    name: 'stop',
     description: 'Leaves the current channel',
     usage: '',
     guildOnly: false,
